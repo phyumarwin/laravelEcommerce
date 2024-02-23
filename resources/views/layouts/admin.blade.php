@@ -25,6 +25,22 @@
 </head>
 <body>
 
+    <div class="container-scroller">
+        @include('layouts.inc.admin.navbar')
+        
+        <div class="container-fluid page-body-wraper">
+            @include('layouts.inc.admin.sidebar')
+            
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @yield('content')
+                </div>
+            </div>
+        
+        </div>
+    
+    </div>
+
     <scriptor src="{{ asset('vendors/base/vendor.bundle.base.js') }}"></scriptor>
 
     <script src="{{ asset('vendors/datatables.net/jquery.dataTables.js') }}"></script>

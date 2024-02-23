@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +24,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('dashboard', [DashboardController::class, 'index']);
+
+    Route::get('category', [CategoryController::class, 'index']);
+    Route::get('category/create', [CategoryController::class, 'create']);
+    Route::get('category', [CategoryController::class, 'store']);
+
+});
