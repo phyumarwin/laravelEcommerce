@@ -39,8 +39,8 @@ class Index extends Component
             'slug' => Str::slug($this->slug),
             'status' => $this->status == true ? '1':'0',
         ]);
-        session()->flesh('message','Brand Added Successfully');
-        $this->dispatchBrowserEvent('close-modal');
+        session()->flash('message','Brand Added Successfully');
+        $this->dispatch('close-modal');
         $this->resetInput();
     }
 
@@ -72,7 +72,7 @@ class Index extends Component
             'status' => $this->status == true ? '1' : '0',
         ]);
         session()->flash('message', 'Brand Updated Successfully');
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatch('close-modal');
         $this->resetInput();
     }
 

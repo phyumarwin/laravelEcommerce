@@ -92,8 +92,8 @@
   </div>
 </div>
 
-<!-- Brand Update Modal -->
-<div wire:ignor.self class="modal fade" id="updateBrandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Brand delete Modal -->
+<div wire:ignor.self class="modal fade" id="deleteBrandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
