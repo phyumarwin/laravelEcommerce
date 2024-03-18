@@ -4,15 +4,20 @@
 
 <div class="row">
     <div class="col-md-12">
+        @if (session('message'))
+            <h5 class="alert alert-success mb-2">{{ session('message') }}</h5>
+        @endif
        <div class="card">
            <div class="card-header">
-               <h3>Add Product
+               <h3>Edit Product
                    <a href="{{ url('admin/products') }}" class="btn btn-danger btn-sm text-white float-end">
                         BACK
                     </a>
                </h3>
            </div>
            <div class="card-body">
+
+                
                 @if ($errors->any())
                     <div class="alert alert-warning">
                         @foreach ($errors->all() as $error)
@@ -20,8 +25,10 @@
                         @endforeach
                     </div>
                 @endif
-                <form action="{{ url('admin/products') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ url('admin/products/'.$product->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
+
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
@@ -51,34 +58,38 @@
                                 <select name="category_id" class="form-control">
                                     <option value="">Select Category</option>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>   
+                                        <option value="{{ $category->id }}" {{ $category->id == $product->category_id ? 'selected':'' }}>
+                                            {{ $category->name }}
+                                        </option>   
                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label>Product Name</label>
-                                <input type="text" name="name" class="form-control" />
+                                <input type="text" name="name" value="{{ $product->name }}" class="form-control" />
                             </div>
                             <div class="mb-3">
                                 <label>Product Slug</label>
-                                <input type="text" name="name" class="form-control" />
+                                <input type="text" name="name" value="{{ $product->slug }}" class="form-control" />
                             </div>
                             <div class="mb-3">
                                 <label>Select Brand</label>
-                                <select name="brand_id" class="form-control">
+                                <select name="brand" class="form-control">
                                     <option value="">Select Brand</option>
                                     @foreach ($brands as $brand)
-                                        <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                        <option value="{{ $brand->name }}" {{ $brand->name == $product->brand ? 'selected':'' }}>
+                                            {{ $brand->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label>Small Description(500 Words)</label>
-                                <textarea name="small_description" class="form-control" rows="4"></textarea>
+                                <textarea name="small_description" class="form-control" rows="4">{{ $product->small_description }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label>Description</label>
-                                <textarea name="description" class="form-control" rows="4"></textarea>
+                                <textarea name="description" class="form-control" rows="4">{{ $product->description }}</textarea>
                             </div>
                         </div>
                         <div class="tab-pane fade border p-3" id="seotag-tab-pane" role="tabpanel" aria-labelledby="seotag-tab-pane" tabindex="0">
@@ -134,10 +145,26 @@
                                 <label>Upload Product Images</label>
                                 <input type="file" name="image[]" multiple class="form-control" />
                             </div>
+                            <div>
+                                @if ($product->productImages)
+                                <div class="row">
+                                    @foreach ($product->productImages as $image)
+                                    <div class="col-md-2">
+                                        <img src="{{ asset($image->image) }}" style="width: 80px;height:80px;"
+                                            class="me-4 border" alt="Img" />
+                                        <a href="{{ url('admin/product-image/'.$image->id.'/delete') }}" class="d-block">Remove</a>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                @else
+                                    <h5>No Image Added</h5>
+                                @endif
+                                
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="py-2 float-end">
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
            </div>

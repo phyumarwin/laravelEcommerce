@@ -42,15 +42,15 @@
   </div>
 
 <!-- Brand Update Modal -->
-<div wire:ignor.self class="modal fade" id="updateBrandModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div wire:ignor.self class="modal fade" id="updateBrandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Brands</h5>
-        <button type="button" class="btn-close" wire:click='closeModal' data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title fs-5" id="exampleModalLabel">Update Brands</h5>
+        <button type="button" class="btn-close" wire:click='closeModal' data-bs-dismiss="modal" aria-label="Close">
         </button>
       </div>
-      <div wire:loading>
+      <div wire:loading class="p-2">
         <div class="spinner-border text-primary" role="status">
           <span class="visually-hidden">Loading...</span>
         </div> Loading...
