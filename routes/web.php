@@ -37,6 +37,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::put('/products/{product}', 'update');
         Route::get('products/{product_id}/delete','destroy');
         Route::get('product-image/{product_image_id}/delete','destroyImage');
+        Route::post('product-color/{prod_color_id', 'updateProdColorQty');
+        Route::get('product-color/{prod_color_id}/delete', 'deleteProdColor');
     });
 
     Route::get('/brands', Index::class);
