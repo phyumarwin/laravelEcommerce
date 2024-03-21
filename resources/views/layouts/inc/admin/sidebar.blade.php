@@ -56,10 +56,16 @@
           <span class="menu-title">Users</span>
           <i class="menu-arrow"></i>
         </a>
+        <div class="collapse" id="users">
+          <ul class="nav flex-column sub-menu">
+            <li class="nav-item"><a href="#" class="nav-link">Add User</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">View User</a></li>
+          </ul>
+        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#homeSlider">
-          <i class="mdi mdi-emoticon menu-icon"></i>
+        <a class="nav-link" href="{{ url('admin/sliders') }}">
+          <i class="mdi mdi-view-carousel menu-icon"></i>
           <span class="menu-title">Home Slider</span>
         </a>
       </li>
