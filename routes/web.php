@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Slider;
+use App\Models\Wishlist;
 use App\Livewire\Admin\Brand\Index;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -9,9 +10,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\WishlistController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -20,6 +24,19 @@ use App\Http\Controllers\Frontend\FrontendController;
 Auth::routes();
 
 Route::get('/',[FrontendController::class, 'index']);
+Route::get('/collections',[FrontendController::class, 'categories']);
+Route::get('/collections/{category_slug}',[FrontendController::class, 'products']);
+Route::get('/collections/{category_slug}/{product_slug}',[FrontendController::class, 'productView']);
+
+Route::middleware(['auth'])->group(function () {
+    
+    Route::get('wishlist',[WishlistController::class, 'index']);
+    Route::get('cart',[CartController::class, 'index']);
+    Route::get('checkout',[CheckoutController::class, 'index']);
+
+});
+
+Route::get('thank-you', [FrontendController::class, 'thankyou']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -40,14 +57,14 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/category', 'index');
         Route::get('/category/create', 'create');
         Route::post('/category', 'store');
-        Route::get('/category/{category}/edit', 'edit');
-        Route::put('/category/{category}', 'update');
+        Route::get('/category/{category}/edit', 'edit')->name('category.edit');
+        Route::put('/category/{category}', 'update')->name('category.update');
     });
 
     Route::controller(ProductController::class)->group(function () {
         Route::get('/products', 'index');
         Route::get('/products/create', 'create')->name('product.create');
-        Route::post('/products', 'store');
+        Route::post('/products', 'store')->name('product.store');
         Route::get('/products/{product}/edit', 'edit');
         Route::put('/products/{product}', 'update');
         Route::get('products/{product_id}/delete','destroy');

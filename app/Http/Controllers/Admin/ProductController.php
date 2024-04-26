@@ -37,6 +37,7 @@ class ProductController extends Controller
         $product = $category->products()->create([
             'category_id' => $validatedData['category_id'],
             'name' => $validatedData['name'],
+            'slug' => $validatedData['slug'],
             'brand_id' => $validatedData['brand_id'],
             'small_description' => $validatedData['small_description'],
             'description' => $validatedData['description'],
@@ -64,18 +65,17 @@ class ProductController extends Controller
                     'product_id' => $product->id,
                     'image' => $finalImagePathName,
                 ]);
-            }
-        }
-
-        if($request->colors)
-        {
-            foreach($request->colors as $key => $color)
-            {
-                $product->productColors()->create([
-                    'product_id' => $product->id,
-                    'color_id' => $color,
-                    'quantity' => $request->colorquantity[$key] ?? 0
-                ]);
+                if($request->colors)
+                {
+                    foreach($request->colors as $key => $color)
+                    {
+                        $product->productColors()->create([
+                        'product_id' => $product->id,
+                        'color_id' => $color,
+                        'quantity' => $request->colorquantity[$key] ?? 0
+                        ]);
+                    }
+                }
             }
         }
         
@@ -96,13 +96,14 @@ class ProductController extends Controller
     {
         $validatedData = $request->validated();
 
-        $product = Category::findOrFail($validatedData['category_id'])
-                        ->products()->where('id', $product_id)->first();
+        $product = Product::findOrFail($product_id);
+
         if($product)
         {
            $product->update([
                 'category_id' => $validatedData['category_id'],
                 'name' => $validatedData['name'],
+                'slug' => $validatedData['slug'],
                 'brand_id' => $validatedData['brand_id'],
                 'small_description' => $validatedData['small_description'],
                 'description' => $validatedData['description'],
@@ -175,7 +176,7 @@ class ProductController extends Controller
             }
         }
         $product->delete();
-        return redirect()->back()->with('message', 'Product Deleted with all its image');
+        return redirect('admin/products')->with('message', 'Product Deleted with all its image');
     }
 
     public function updateProdColorQty(Request $request, $prod_color_id)

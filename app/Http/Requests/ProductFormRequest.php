@@ -30,9 +30,12 @@ class ProductFormRequest extends FormRequest
                 'required',
                 'string'
             ],
+            'slug' => [
+                'required',
+                'string'
+            ],
             'brand_id' => [
                 'required',
-                'integer',
             ],
             'small_description' => [
                 'required',

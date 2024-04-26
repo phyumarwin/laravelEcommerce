@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\ProductColor;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
@@ -15,6 +16,7 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'name',
+        'slug',
         'brand_id',
         'small_description',
         'description',
@@ -38,7 +40,7 @@ class Product extends Model
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
-    public function brand()
+    public function brand():BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand_id','id');
     }

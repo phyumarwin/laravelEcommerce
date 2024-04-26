@@ -20,8 +20,9 @@
                         @endforeach
                     </div>
                 @endif
-                <form action="{{ url('admin/products') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">
@@ -66,7 +67,7 @@
                             </div>
                             <div class="mb-3">
                                 <label>Product Slug</label>
-                                <input type="text" name="name" class="form-control" />
+                                <input type="text" name="slug" class="form-control" />
                             </div>
                             <div class="mb-3">
                                 <label>Select Brand</label>

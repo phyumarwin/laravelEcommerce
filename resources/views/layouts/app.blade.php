@@ -9,6 +9,10 @@
 
     <title> @yield('title') </title>
 
+    <meta name="description" content="@yield('meta_description')">
+    <meta name="keywords" content="@yield('meta_keyword')">
+    <meta name="author" content="Funda of Web IT">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -18,6 +22,12 @@
     <!--Style-->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
     @livewireStyles
 </head>
 <body>
@@ -33,7 +43,14 @@
     <!--Script-->
     <script src="{{ asset('assets/js/jquery-3.7.1.min.js') }}" defer></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
-    
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        window.addEventListener('message', event => {
+            alertify.set('notifier','position', 'top-right');
+            alertify.notify(event.detail.text,event.detail.type);
+        });
+        
+    </script>
     @livewireScripts
 </body>
 </html>
