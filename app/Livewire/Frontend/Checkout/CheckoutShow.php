@@ -14,6 +14,22 @@ class CheckoutShow extends Component
 
     public $fullname, $email, $phone, $pincode, $address, $payment_mode = NULL, $payment_id = NULL;
 
+    protected $listeners = [
+        'validationForAll',
+        'transactionEmit' => 'paidOnlineOrder'
+    ];
+
+    public function paidOnlineOrder($value)
+    {
+        $this->payment_id = $value;
+        $this->payment_mode = 'Paid by Paypal';
+    }
+
+    public function validationForAll()
+    {
+        $this->validate();
+    }
+
     public function rules()
     {
         return [
