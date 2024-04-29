@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\CartController;
@@ -33,6 +34,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('wishlist',[WishlistController::class, 'index']);
     Route::get('cart',[CartController::class, 'index']);
     Route::get('checkout',[CheckoutController::class, 'index']);
+    Route::get('orders', [OrderController::class, 'index']);
+    Route::get('orders/{orderId}', [OrderController::class, 'show']);
 
 });
 
@@ -82,6 +85,15 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('/colors/{color}/edit','edit');
         Route::put('/colors/{color_id}','update')->name('color.update');
         Route::get('/colors/{color_id}/delete','destroy');
+    });
+
+    Route::controller(OrderController::class)->group(function () {
+        Route::get('/orders', 'index');
+        Route::get('/orders/{orderId}', 'show');
+        Route::put('/orders/{orderId}', 'updateOrderStatus');
+
+        Route::get('/invoice/{orderId}', 'viewInvoice');
+        Route::get('/invoice/{orderId}/generate', 'generateInvoice');
     });
 
 });
