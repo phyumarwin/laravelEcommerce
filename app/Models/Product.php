@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Brand;
+use App\Models\Category;
 use App\Models\ProductColor;
+use App\Models\ProductImage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,6 +27,7 @@ class Product extends Model
         'selling_price',
         'quantity',
         'trending',
+        'featured',
         'status',
         'meta_title',
         'meta_keyword',

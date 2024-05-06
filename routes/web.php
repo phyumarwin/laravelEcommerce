@@ -14,9 +14,12 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Frontend\WishlistController;
+use Livewire\Mechanisms\FrontendAssets\FrontendAssets;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -29,6 +32,16 @@ Route::get('/collections',[FrontendController::class, 'categories']);
 Route::get('/collections/{category_slug}',[FrontendController::class, 'products']);
 Route::get('/collections/{category_slug}/{product_slug}',[FrontendController::class, 'productView']);
 
+Route::controller(FrontendController::class)->group(function () {
+
+    Route::get('/','index');
+    Route::get('/collections','categories');
+    Route::get('/collections/{category_slug}','products');
+    Route::get('/collections/{category_slug}/{product_slug}','productView');
+    
+    Route::get('/new-arrivals', 'newArrival');
+    Route::get('/featured-products', 'featuredProducts');
+});
 Route::middleware(['auth'])->group(function () {
     
     Route::get('wishlist',[WishlistController::class, 'index']);
@@ -46,7 +59,9 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
     Route::get('dashboard', [DashboardController::class, 'index']);
-    
+    Route::get('settings', [SettingController::class, 'index']);
+    Route::post('settings', [SettingController::class, 'store']);
+
     Route::controller(SliderController::class)->group(function () {
         Route::get('sliders', 'index');
         Route::get('sliders/create','create')->name('slider.create');
@@ -94,6 +109,16 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
 
         Route::get('/invoice/{orderId}', 'viewInvoice');
         Route::get('/invoice/{orderId}/generate', 'generateInvoice');
+    });
+
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/users', 'index');
+        Route::get('/users/create', 'create');
+        Route::post('/users', 'store');
+        Route::get('/users/{user_id}/edit', 'edit');
+        Route::put('users/{user_id}', 'update');
+        Route::get('users/{user_id}/delete', 'destroy');
+
     });
 
 });

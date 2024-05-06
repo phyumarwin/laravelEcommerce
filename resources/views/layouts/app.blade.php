@@ -21,7 +21,15 @@
 
     <!--Style-->
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+    
+    {{-- Owl Carousel --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.min.css') }}">
+
+    {{-- Exzoom - Product Images--}}
+    <link rel="stylesheet" href="{{ asset('assets/exzoom/jquery.exzoom.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
     
     <!-- CSS -->
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
@@ -33,11 +41,13 @@
 <body>
     <div id="app">
 
-        @include('layouts.inc.frontend.navbar');
+        @include('layouts.inc.frontend.navbar')
         
         <main>
             @yield('content')
         </main>
+
+        @include('layouts.inc.frontend.footer')
     </div>
 
     <!--Script-->
@@ -45,14 +55,20 @@
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
     <script>
-        window.addEventListener('message', event => {
-            if(event.detail){
-                alertify.set('notifier','position', 'top-right');
-                alertify.notify(event.detail.text,event.detail.type);
-            }
-        });
+        // window.addEventListener('message', event => {
+        //     if(event.detail){
+        //         alertify.set('notifier','position', 'top-right');
+        //         alertify.notify(event.detail.text,event.detail.type);
+        //     }
+        // });
         
     </script>
+
+    <script src="{{ asset('assets/exzoom/jquery.exzoom.js') }}" defer></script>
+
+    <script src="{{ asset('assets/js/owl.carousel.min.js') }}" defer></script>
+    @yield('script')
+
     @livewireScripts
     @stack('scripts')
 </body>

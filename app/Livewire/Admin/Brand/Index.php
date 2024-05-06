@@ -91,7 +91,7 @@ class Index extends Component
     {
         Brand::findOrFail($this->brand_id)->delete();
         session()->flash('message', 'Brand Deleted Successfully');
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatch('close-modal');
         $this->resetInput();
     }
     

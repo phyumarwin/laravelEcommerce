@@ -6,6 +6,7 @@ use App\Models\Brand;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use App\Models\ProductColor;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class ProductController extends Controller
         $product = $category->products()->create([
             'category_id' => $validatedData['category_id'],
             'name' => $validatedData['name'],
-            'slug' => $validatedData['slug'],
+            'slug' => Str::slug($validatedData['slug']),
             'brand_id' => $validatedData['brand_id'],
             'small_description' => $validatedData['small_description'],
             'description' => $validatedData['description'],
@@ -45,6 +46,7 @@ class ProductController extends Controller
             'selling_price' => $validatedData['selling_price'],
             'quantity' => $validatedData['quantity'],
             'trending' => $request->trending == true ? '1':'0',
+            'featured' => $request->featured == true ? '1':'0',
             'status' => $request->status == true ? '1':'0',
             'meta_title' => $validatedData['meta_title'],
             'meta_keyword' => $validatedData['meta_keyword'],
