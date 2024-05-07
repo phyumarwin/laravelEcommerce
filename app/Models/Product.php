@@ -20,7 +20,7 @@ class Product extends Model
         'category_id',
         'name',
         'slug',
-        'brand_id',
+        'brand',
         'small_description',
         'description',
         'original_price',

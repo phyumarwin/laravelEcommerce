@@ -106,7 +106,7 @@ class ProductController extends Controller
                 'category_id' => $validatedData['category_id'],
                 'name' => $validatedData['name'],
                 'slug' => $validatedData['slug'],
-                'brand_id' => $validatedData['brand_id'],
+                'brand' => $validatedData['brand'],
                 'small_description' => $validatedData['small_description'],
                 'description' => $validatedData['description'],
                 'original_price' => $validatedData['original_price'],
