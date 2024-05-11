@@ -64,9 +64,9 @@
         
     </script>
 
-    <script src="{{ asset('assets/exzoom/jquery.exzoom.js') }}" defer></script>
+    <script src="{{ asset('assets/exzoom/jquery.exzoom.js') }}"></script>
 
-    <script src="{{ asset('assets/js/owl.carousel.min.js') }}" defer></script>
+    <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
     @yield('script')
 
     @livewireScripts

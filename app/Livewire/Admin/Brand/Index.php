@@ -53,6 +53,11 @@ class Index extends Component
         $this->resetInput();
     }
 
+    public function saveData()
+    {
+        return redirect()->to('/admin/brands');
+    }
+
     public function openModal()
     {
         $this->resetInput();

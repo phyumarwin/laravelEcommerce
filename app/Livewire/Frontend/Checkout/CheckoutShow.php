@@ -7,6 +7,8 @@ use App\Models\Order;
 use Livewire\Component;
 use App\Models\Orderitem;
 use Illuminate\Support\Str;
+use App\Mail\PlaceOrderMailable;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutShow extends Component
 {
@@ -82,12 +84,16 @@ class CheckoutShow extends Component
         $codOrder = $this->placeOrder();
         if($codOrder){
             Cart::where('user_id', auth()->user()->id)->delete();
+
+            try{
+                $order = Order::findOrFail($codOrder->id);
+                Mail::to("$order->email")->send(new PlaceOrderMailable($order));
+                //Mail Sent Successful
+            }catch(\Exception $e){
+
+            }
             session()->flash('message','Order Placed Successfully');
-            $this->dispatch('message', [
-                'text' => 'Order Placed Successfully',
-                'type' => 'success',
-                'status' => 200
-            ]);
+           
             return redirect()->to('thank-you');
         }else{
             session()->flash('error','Something went wrong');
@@ -106,8 +112,12 @@ class CheckoutShow extends Component
     
     public function render()
     {
-        $this->fullname = auth()->user()->name;
+        $this->fullname = auth()->user()->username;
         $this->email = auth()->user()->email;
+        
+        $this->phone = auth()->user()->phone;
+        $this->pincode = auth()->user()->pin_code;
+        $this->address = auth()->user()->address;
 
         $this->totalProductAmount = $this->totalProductAmount();
         return view('livewire.frontend.checkout.checkout-show', [

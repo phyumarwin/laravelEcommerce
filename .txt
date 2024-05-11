@@ -1,0 +1,40 @@
+$table->string('website_name')->nullable();
+            $table->string('website_url')->nullable();
+            $table->string('page_title')->nullable();
+            $table->string('meta_keyword',500)->nullable();
+            $table->string('meta_description',500)->nullable();
+            
+            $table->string('address',500)->nullable();
+            $table->string('phone1')->nullable();
+            $table->string('phone2')->nullable();
+            $table->string('email1')->nullable();
+            $table->string('email2')->nullable();
+
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('youtube')->nullable();
+
+
+
+
+
+            // protected $table = 'settings';
+
+    protected $fillable = [
+        
+        'website_name',
+        'website_url',
+        'page_title',
+        'meta_keyword',
+        'meta_description',
+        'address',
+        'phone1',
+        'phone2',
+        'email1',
+        'email2',
+        'facebook',
+        'twitter',
+        'instagram',
+        'youtube'
+    ];
